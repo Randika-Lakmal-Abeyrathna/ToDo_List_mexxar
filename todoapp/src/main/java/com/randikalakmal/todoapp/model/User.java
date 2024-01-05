@@ -16,12 +16,12 @@ public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
     private List<ToDoList> toDoLists = new ArrayList<>();
 
     public String getFirstName() {

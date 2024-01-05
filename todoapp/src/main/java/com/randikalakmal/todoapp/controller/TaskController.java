@@ -1,5 +1,6 @@
 package com.randikalakmal.todoapp.controller;
 
+import com.randikalakmal.todoapp.DTO.UpdateTaskStatusDto;
 import com.randikalakmal.todoapp.model.Task;
 import com.randikalakmal.todoapp.model.TaskStatus;
 import com.randikalakmal.todoapp.service.impl.TaskService;
@@ -51,9 +52,9 @@ public class TaskController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @RequestBody TaskStatus taskStatus){
+    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @RequestBody UpdateTaskStatusDto updateTaskStatusDto){
 
-        Task task = taskService.updatetaskStatus(id, taskStatus);
+        Task task = taskService.updatetaskStatus(id, updateTaskStatusDto);
 
         return new ResponseEntity<>(task,HttpStatus.OK);
     }

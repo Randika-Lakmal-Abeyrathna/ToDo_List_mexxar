@@ -1,5 +1,6 @@
 package com.randikalakmal.todoapp.service.impl;
 
+import com.randikalakmal.todoapp.DTO.UpdateTaskStatusDto;
 import com.randikalakmal.todoapp.Exceptions.TaskException;
 import com.randikalakmal.todoapp.model.Task;
 import com.randikalakmal.todoapp.model.TaskStatus;
@@ -25,11 +26,11 @@ public class TaskService extends BaseService<Task,Long> {
         return taskRepository;
     }
 
-    public Task updatetaskStatus(Long id, TaskStatus taskStatus) {
+    public Task updatetaskStatus(Long id, UpdateTaskStatusDto updateTaskStatusDto) {
 
         Task task = taskRepository.findById(id).orElseThrow(()-> new TaskException("Task Not Found with id "+id));
 
-        task.setStatus(taskStatus);
+        task.setStatus(updateTaskStatusDto.status());
         return taskRepository.save(task);
     }
 

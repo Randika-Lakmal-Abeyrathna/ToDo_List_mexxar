@@ -1,6 +1,8 @@
 package com.randikalakmal.todoapp.controller;
 
+import com.randikalakmal.todoapp.DTO.GetUserByToDoListNameDto;
 import com.randikalakmal.todoapp.DTO.UserDTO;
+import com.randikalakmal.todoapp.DTO.UserFirstNameAndLastNameDto;
 import com.randikalakmal.todoapp.model.User;
 import com.randikalakmal.todoapp.service.impl.UserService;
 import org.hibernate.sql.Update;
@@ -31,7 +33,7 @@ public class UserController {
 
     @PutMapping("/update")
     public ResponseEntity<?> updateUser(@RequestBody  User user){
-        User updated = userService.update(user);
+        User updated = userService.updateUser(user);
         return new ResponseEntity<>(updated,HttpStatus.OK);
     }
 
@@ -41,14 +43,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getAllUsers(){
         List<User> userList = userService.getAll();
         return new ResponseEntity<>(userList,HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id){
+    public ResponseEntity<User> getUserById(@PathVariable Long id){
         User user = userService.getById(id);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
@@ -66,9 +68,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/{firstname}/{lastname}")
-    public ResponseEntity<List<User>> getUserByFirstNameAndLastName(@PathVariable String firstname,@PathVariable String lastname){
-        List<User> userByFirstNameAndLastName = userService.getUserByFirstNameAndLastName(firstname, lastname);
+    @GetMapping("/fullName")
+    public ResponseEntity<List<User>> getUserByFirstNameAndLastName(@RequestBody UserFirstNameAndLastNameDto dto){
+        List<User> userByFirstNameAndLastName = userService.getUserByFirstNameAndLastName(dto);
         return new ResponseEntity<>(userByFirstNameAndLastName,HttpStatus.OK);
     }
 
@@ -78,9 +80,9 @@ public class UserController {
         return new ResponseEntity<>(userByEmail,HttpStatus.OK);
     }
 
-    @GetMapping("/todolistname/{todolistname}")
-    public ResponseEntity<List<User>> getUserByToDoListNameName(@PathVariable String todolistname){
-        List<User> userByToDoName = userService.getUserByToDoName(todolistname);
+    @GetMapping("/todolistname")
+    public ResponseEntity<List<User>> getUserByToDoListNameName(@RequestBody GetUserByToDoListNameDto getUserByToDoListNameDto){
+        List<User> userByToDoName = userService.getUserByToDoName(getUserByToDoListNameDto);
         return new ResponseEntity<>(userByToDoName,HttpStatus.OK);
     }
 
