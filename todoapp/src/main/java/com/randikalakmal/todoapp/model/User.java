@@ -15,14 +15,14 @@ public class User extends BaseEntity {
 
 
     private String firstName;
-
     private String lastName;
+    @Enumerated
+    private Gender gender;
     private String email;
     private String password;
 
-    @Enumerated
-    private Gender gender;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToDoList> toDoLists = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
@@ -63,6 +63,7 @@ public class User extends BaseEntity {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
 
     @Override
     public String toString() {

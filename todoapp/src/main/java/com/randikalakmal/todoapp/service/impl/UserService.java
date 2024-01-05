@@ -29,25 +29,25 @@ public class UserService extends BaseService<User,Long> {
         return userRepository;
     }
 
-    public User getUserByFirstName(String firstname) {
-        return userRepository.getUserByFirstName(firstname).orElseThrow(()-> new UserExceptions("User Not Found With Given First Name: " +firstname));
+    public List<User> getUserByFirstName(String firstname) {
+        return userRepository.getUserByFirstName(firstname);
     }
 
-    public User getUserByLastName(String lastname) {
-        return userRepository.getUserByLastName(lastname).orElseThrow(()-> new UserExceptions("User Not Found With Given Last Name: " +lastname));
+    public List<User> getUserByLastName(String lastname) {
+        return userRepository.getUserByLastName(lastname);
     }
 
-    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
-        return userRepository.getUserByFirstNameAndLastName(firstname,lastname).orElseThrow(()-> new UserExceptions("User Not Found With Given First Name: " +lastname +" and Last Name: "+lastname));
+    public List<User> getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userRepository.getUserByFirstNameAndLastName(firstname,lastname);
     }
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email).orElseThrow(()-> new UserExceptions("User Not Found With Given Email: " +email));
     }
 
 
-    public User getUserByToDoName(String todolistname) {
+    public List<User> getUserByToDoName(String todolistname) {
 
-        return userRepository.getUserByToDoName(todolistname).orElseThrow(()-> new UserExceptions("User Not Found With Given To Do List Name: " +todolistname));
+        return userRepository.getUserByToDoName(todolistname);
     }
 
     public User siginIn(User user) {

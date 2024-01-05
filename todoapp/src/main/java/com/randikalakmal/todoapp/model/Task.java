@@ -11,15 +11,13 @@ public class Task extends BaseEntity{
 
     private String name;
     private String description;
-
     private LocalDate startDate;
-
     private LocalDate endDate;
-
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @ManyToOne(cascade =  CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_do_list_id")
     private ToDoList toDoList;
 
     public String getName() {
@@ -69,6 +67,7 @@ public class Task extends BaseEntity{
     public void setToDoList(ToDoList toDoList) {
         this.toDoList = toDoList;
     }
+
 
     @Override
     public String toString() {

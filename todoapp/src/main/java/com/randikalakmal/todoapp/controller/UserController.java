@@ -54,21 +54,21 @@ public class UserController {
     }
 
     @GetMapping("/firstName/{firstname}")
-    public ResponseEntity<User> getUserByFirstName(@PathVariable String firstname){
-        User userByFirstName = userService.getUserByFirstName(firstname);
+    public ResponseEntity<List<User>> getUserByFirstName(@PathVariable String firstname){
+        List<User> userByFirstName = userService.getUserByFirstName(firstname);
         return new ResponseEntity<>(userByFirstName,HttpStatus.OK);
     }
 
     @GetMapping("/lastName/{lastname}")
-    public ResponseEntity<User> getUserByLastName(@PathVariable String lastname){
-        User userByLastName = userService.getUserByLastName(lastname);
+    public ResponseEntity<List<User>> getUserByLastName(@PathVariable String lastname){
+        List<User> userByLastName = userService.getUserByLastName(lastname);
         return new ResponseEntity<>(userByLastName,HttpStatus.OK);
     }
 
 
     @GetMapping("/{firstname}/{lastname}")
-    public ResponseEntity<User> getUserByFirstNameAndLastName(@PathVariable String firstname,@PathVariable String lastname){
-        User userByFirstNameAndLastName = userService.getUserByFirstNameAndLastName(firstname,lastname);
+    public ResponseEntity<List<User>> getUserByFirstNameAndLastName(@PathVariable String firstname,@PathVariable String lastname){
+        List<User> userByFirstNameAndLastName = userService.getUserByFirstNameAndLastName(firstname, lastname);
         return new ResponseEntity<>(userByFirstNameAndLastName,HttpStatus.OK);
     }
 
@@ -79,8 +79,8 @@ public class UserController {
     }
 
     @GetMapping("/todolistname/{todolistname}")
-    public ResponseEntity<User> getUserByToDoListNameName(@PathVariable String todolistname){
-        User userByToDoName = userService.getUserByToDoName(todolistname);
+    public ResponseEntity<List<User>> getUserByToDoListNameName(@PathVariable String todolistname){
+        List<User> userByToDoName = userService.getUserByToDoName(todolistname);
         return new ResponseEntity<>(userByToDoName,HttpStatus.OK);
     }
 
