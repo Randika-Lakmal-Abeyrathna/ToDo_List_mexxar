@@ -1,17 +1,39 @@
 package com.randikalakmal.todoapp.service;
 
-public interface BaseService {
+import com.randikalakmal.todoapp.model.BaseEntity;
+import com.randikalakmal.todoapp.repository.BaseRepository;
+import org.springframework.stereotype.Service;
 
-    public Object create(Object object);
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional
+public abstract class BaseService <T extends BaseEntity, ID extends Long> {
 
 
-    public Object update(Object object);
+    protected abstract BaseRepository<T,ID> getRepository();
 
-    public void delete(Object object);
 
-    public Object getAll();
+    public T create(T object) {
+        return getRepository().save(object);
+    }
 
-    public Object getById(Object object);
+    public T update(T object) {
+        return getRepository().save(object);
+    }
+
+    public void delete(T object) {
+        getRepository().delete(object);
+    }
+
+    public List<T> getAll() {
+        return getRepository().findAll();
+    }
+
+    public T getById(ID id) {
+        return getRepository().getById(id);
+    }
 
 
 }

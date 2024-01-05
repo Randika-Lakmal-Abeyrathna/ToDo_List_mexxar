@@ -1,25 +1,18 @@
 package com.randikalakmal.todoapp.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "User")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class User extends BaseEntity {
 
-
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
-    private LocalDate createdDate;
 
     private String firstName;
 
@@ -30,22 +23,6 @@ public class User {
     @Enumerated
     private Gender gender;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = LocalDate.now();
-    }
 
     public String getFirstName() {
         return firstName;
@@ -87,4 +64,16 @@ public class User {
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", id=" + id +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }

@@ -2,14 +2,17 @@ package com.randikalakmal.todoapp.service.impl;
 
 import com.randikalakmal.todoapp.Exceptions.TaskException;
 import com.randikalakmal.todoapp.model.Task;
+import com.randikalakmal.todoapp.model.TaskStatus;
+import com.randikalakmal.todoapp.repository.BaseRepository;
 import com.randikalakmal.todoapp.repository.TaskRepository;
 import com.randikalakmal.todoapp.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class TaskService implements BaseService {
+public class TaskService extends BaseService<Task,Long> {
 
     private final TaskRepository taskRepository;
 
@@ -17,29 +20,21 @@ public class TaskService implements BaseService {
         this.taskRepository = taskRepository;
     }
 
-
     @Override
-    public Task create(Object task) {
-        return taskRepository.save((Task) task);
+    protected BaseRepository<Task, Long> getRepository() {
+        return taskRepository;
     }
 
-    @Override
-    public Task update(Object task) {
-        return taskRepository.save((Task) task);
+    public Task updatetaskStatus(Long id, TaskStatus taskStatus) {
+
+        Task task = taskRepository.findById(id).orElseThrow(()-> new TaskException("Task Not Found with id "+id));
+
+        task.setStatus(taskStatus);
+        return taskRepository.save(task);
     }
 
-    @Override
-    public void delete(Object task) {
-        taskRepository.delete((Task) task);
-    }
+    public List<Task> getAllTaskByToDoListId(Long id) {
 
-    @Override
-    public List<Task> getAll() {
-        return taskRepository.findAll();
-    }
-
-    @Override
-    public Task getById(Object id) {
-        return taskRepository.findById((Long) id).orElseThrow(()-> new TaskException("Task id not found "+id));
+        return taskRepository.getTaskByToDoTaskId(id);
     }
 }

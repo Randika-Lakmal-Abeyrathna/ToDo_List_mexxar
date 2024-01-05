@@ -3,51 +3,58 @@ package com.randikalakmal.todoapp.service.impl;
 import com.randikalakmal.todoapp.DTO.UserDTO;
 import com.randikalakmal.todoapp.Exceptions.UserExceptions;
 import com.randikalakmal.todoapp.model.User;
+import com.randikalakmal.todoapp.repository.BaseRepository;
 import com.randikalakmal.todoapp.repository.UserRepository;
 import com.randikalakmal.todoapp.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class UserService implements BaseService {
+public class UserService extends BaseService<User,Long> {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User create(Object user) {
-
-        User user1 = (User) user;
-        user1.setCreatedDate(LocalDate.now());
-
-        return userRepository.save((User) user);
+    protected BaseRepository getRepository() {
+        return userRepository;
     }
 
-    @Override
-    public User update(Object user) {
-
-        return userRepository.save((User) user);
+    public User getUserByFirstName(String firstname) {
+        return userRepository.getUserByFirstName(firstname).orElseThrow(()-> new UserExceptions("User Not Found With Given First Name: " +firstname));
     }
 
-    @Override
-    public void delete(Object user) {
-
-         userRepository.delete((User) user);
+    public User getUserByLastName(String lastname) {
+        return userRepository.getUserByLastName(lastname).orElseThrow(()-> new UserExceptions("User Not Found With Given Last Name: " +lastname));
     }
 
-    @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userRepository.getUserByFirstNameAndLastName(firstname,lastname).orElseThrow(()-> new UserExceptions("User Not Found With Given First Name: " +lastname +" and Last Name: "+lastname));
+    }
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email).orElseThrow(()-> new UserExceptions("User Not Found With Given Email: " +email));
     }
 
-    @Override
-    public User getById(Object id) {
-        return userRepository.findById((Long) id ).orElseThrow(() ->new UserExceptions("User Not found with id "+id));
+
+    public User getUserByToDoName(String todolistname) {
+
+        return userRepository.getUserByToDoName(todolistname).orElseThrow(()-> new UserExceptions("User Not Found With Given To Do List Name: " +todolistname));
+    }
+
+    public User siginIn(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.save(user);
+
     }
 }

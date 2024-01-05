@@ -1,18 +1,14 @@
 package com.randikalakmal.todoapp.model;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "ToDoList")
-public class ToDoList {
-
-
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
-    private LocalDate createdDate;
+public class ToDoList extends BaseEntity{
 
     private String name;
 
@@ -20,21 +16,7 @@ public class ToDoList {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = LocalDate.now();
-    }
 
     public String getName() {
         return name;
@@ -52,7 +34,6 @@ public class ToDoList {
         this.description = description;
     }
 
-
     public User getUser() {
         return user;
     }
@@ -61,14 +42,14 @@ public class ToDoList {
         this.user = user;
     }
 
+
+
     @Override
     public String toString() {
         return "ToDoList{" +
-                "id=" + id +
-                ", createdDate=" + createdDate +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-
+                ", user=" + user +
                 '}';
     }
 }
