@@ -22,4 +22,8 @@ public class ToDoListService extends BaseService<ToDoList,Long> {
     protected BaseRepository<ToDoList, Long> getRepository() {
         return toDoListRepository;
     }
+
+    public List<ToDoList> getToDoListByUserId(Long id){
+        return toDoListRepository.getByToDoListByUserId(id);
+    }
 }

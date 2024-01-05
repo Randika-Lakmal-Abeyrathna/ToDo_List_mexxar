@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "User")
@@ -19,8 +20,11 @@ public class User extends BaseEntity {
     private String email;
     private String password;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @OneToMany(mappedBy ="user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ToDoList> toDoLists = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;

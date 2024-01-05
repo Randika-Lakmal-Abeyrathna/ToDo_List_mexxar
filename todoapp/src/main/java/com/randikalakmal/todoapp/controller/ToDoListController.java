@@ -49,4 +49,10 @@ public class ToDoListController {
         return new ResponseEntity<>(toDoList,HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ToDoList>> getToDoListByUserId(@PathVariable Long userId){
+        List<ToDoList> toDoListByUserId = toDoListService.getToDoListByUserId(userId);
+        return new ResponseEntity<>(toDoListByUserId,HttpStatus.OK);
+    }
+
 }

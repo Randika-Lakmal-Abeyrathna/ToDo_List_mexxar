@@ -4,6 +4,7 @@ package com.randikalakmal.todoapp.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "ToDoList")
@@ -15,6 +16,9 @@ public class ToDoList extends BaseEntity{
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
+
+    @OneToMany(mappedBy = "toDoList",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -40,14 +44,21 @@ public class ToDoList extends BaseEntity{
         this.user = user;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public String toString() {
         return "ToDoList{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", user=" + user +
-                ", id=" + id +
-                ", createdDate=" + createdDate +
+                ", tasks=" + tasks +
                 '}';
     }
 }
