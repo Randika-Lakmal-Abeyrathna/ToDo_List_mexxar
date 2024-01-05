@@ -7,12 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity(name = "Task")
-public class Task {
-
-    @Id
-            @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
-    private LocalDate createdDate;
+public class Task extends BaseEntity{
 
     private String name;
     private String description;
@@ -26,21 +21,6 @@ public class Task {
 
     @ManyToOne(cascade =  CascadeType.ALL)
     private ToDoList toDoList;
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = LocalDate.now();
-    }
 
     public String getName() {
         return name;
@@ -82,16 +62,25 @@ public class Task {
         this.status = status;
     }
 
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+
+    public void setToDoList(ToDoList toDoList) {
+        this.toDoList = toDoList;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
-                "id=" + id +
-                ", createdDate=" + createdDate +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", status=" + status +
+                ", toDoList=" + toDoList +
+                ", id=" + id +
+                ", createdDate=" + createdDate +
                 '}';
     }
 }
