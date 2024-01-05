@@ -8,12 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends BaseRepository<User,Long>{
 
-//
-//    •	User First Name
-//•	User Last Name
-//•	User First Name + Last Name
 
     @Query("SELECT u from User u where u.firstName= :name")
     Optional<User> getUserByFirstName(String name);
