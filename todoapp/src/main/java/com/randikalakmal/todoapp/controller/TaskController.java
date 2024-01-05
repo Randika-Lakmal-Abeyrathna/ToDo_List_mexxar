@@ -2,7 +2,6 @@ package com.randikalakmal.todoapp.controller;
 
 import com.randikalakmal.todoapp.model.Task;
 import com.randikalakmal.todoapp.model.TaskStatus;
-import com.randikalakmal.todoapp.model.ToDoList;
 import com.randikalakmal.todoapp.service.impl.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
