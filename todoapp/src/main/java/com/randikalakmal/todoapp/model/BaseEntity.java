@@ -11,10 +11,10 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    long id;
+    Long id;
     LocalDate createdDate = LocalDate.now();
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

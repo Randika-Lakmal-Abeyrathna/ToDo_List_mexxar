@@ -7,6 +7,7 @@ import com.randikalakmal.todoapp.repository.BaseRepository;
 import com.randikalakmal.todoapp.repository.UserRepository;
 import com.randikalakmal.todoapp.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,9 +17,11 @@ import java.util.List;
 public class UserService extends BaseService<User,Long> {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -45,5 +48,13 @@ public class UserService extends BaseService<User,Long> {
     public User getUserByToDoName(String todolistname) {
 
         return userRepository.getUserByToDoName(todolistname).orElseThrow(()-> new UserExceptions("User Not Found With Given To Do List Name: " +todolistname));
+    }
+
+    public User siginIn(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.save(user);
+
     }
 }

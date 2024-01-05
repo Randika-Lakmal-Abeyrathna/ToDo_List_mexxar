@@ -16,7 +16,7 @@ public class Task extends BaseEntity{
 
     private LocalDate endDate;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private TaskStatus status;
 
     @ManyToOne(cascade =  CascadeType.ALL)

@@ -22,10 +22,10 @@ public class UserController {
     }
 
 
-    @PostMapping("/create")
+    @PostMapping("/signin")
     public ResponseEntity<?> createUser(@RequestBody  User user){
 
-        User createdUser = userService.create(user);
+        User createdUser = userService.siginIn(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
